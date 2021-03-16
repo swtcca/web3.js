@@ -50,7 +50,6 @@ var RequestManager = function RequestManager(provider, net) {
 RequestManager.givenProvider = givenProvider;
 
 RequestManager.providers = {
-    WebsocketProvider: require('web3-providers-ws'),
     HttpProvider: require('web3-providers-http'),
     IpcProvider: require('web3-providers-ipc')
 };
@@ -75,10 +74,6 @@ RequestManager.prototype.setProvider = function (provider, net) {
         // HTTP
         if (/^http(s)?:\/\//i.test(provider)) {
             provider = new this.providers.HttpProvider(provider);
-
-            // WS
-        } else if (/^ws(s)?:\/\//i.test(provider)) {
-            provider = new this.providers.WebsocketProvider(provider);
 
             // IPC
         } else if (provider && typeof net === 'object' && typeof net.connect === 'function') {
